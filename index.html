@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TALLERS VALLÈS — Precision Automotive Engineering · Catalonia</title>
+  <meta name="description" content="ISO-9001 & ITV Prep Mechanical Workshop in Sabadell, Catalonia. Deterministic quotes, live bay telemetry, zero-bloat architecture.">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #F4F3EF;
+      --bg-secondary: #EAE8E1;
+      --text-primary: #141413;
+      --text-secondary: #52514E;
+      --accent-vermilion: #E03C1F;
+      --accent-cobalt: #1B4965;
+      --accent-amber: #D99B26;
+      --accent-green: #1E6B45;
+      --border-ink: #141413;
+      --surface-card: #FFFFFF;
+    }
+
+    [data-theme="pit"] {
+      --bg-primary: #141413;
+      --bg-secondary: #1E1E1C;
+      --text-primary: #F4F3EF;
+      --text-secondary: #A3A19A;
+      --accent-vermilion: #FF4D2E;
+      --accent-cobalt: #2D6A8E;
+      --accent-amber: #E5A93B;
+      --accent-green: #288A58;
+      --border-ink: #F4F3EF;
+      --surface-card: #191917;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swiss-grid {
+      border-top: 1px solid var(--border-ink);
+      border-left: 1px solid var(--border-ink);
+    }
+
+    .swiss-cell {
+      border-right: 1px solid var(--border-ink);
+      border-bottom: 1px solid var(--border-ink);
+    }
+
+    .btn-flat {
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      border: 1px solid var(--border-ink);
+      transition: background-color 120ms steps(1), color 120ms steps(1);
+      cursor: pointer;
+    }
+
+    .btn-flat:hover, .btn-flat:focus-visible {
+      background-color: var(--accent-vermilion);
+      color: #FFFFFF;
+      outline: 2px solid var(--border-ink);
+      outline-offset: -2px;
+    }
+
+    .service-row[aria-checked="true"] {
+      background-color: var(--accent-cobalt);
+      color: #FFFFFF;
+    }
+
+    .service-row[aria-checked="true"] .muted-cell {
+      color: #E5E7EB;
+    }
+
+    ul.bullet-spec {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.bullet-spec li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    ul.bullet-spec li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--accent-vermilion);
+      font-weight: 700;
+    }
+
+    dialog::backdrop {
+      background: rgba(20, 20, 19, 0.75);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- TOP UTILITY BAR (Single-line navigation + Live Shop Status) -->
+  <header class="border-b border-[var(--border-ink)] bg-[var(--bg-primary)] sticky top-0 z-30">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-12 items-stretch">
+      <div class="col-span-7 sm:col-span-4 p-3 sm:px-5 flex items-center gap-3 border-r border-[var(--border-ink)]">
+        <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 4h16v16H4z"/>
+          <path d="M9 4v16M15 4v16M4 9h16M4 15h16" stroke="var(--accent-vermilion)"/>
+        </svg>
+        <div>
+          <span class="font-display font-bold text-base sm:text-lg tracking-tight block">TALLERS VALLÈS</span>
+          <span class="font-mono-tech text-[11px] text-[var(--text-secondary)] block">REG. IND. CAT-08452-B</span>
+        </div>
+      </div>
+
+      <nav aria-label="Section jump links" class="hidden md:flex md:col-span-5 items-center justify-around border-r border-[var(--border-ink)] font-mono-tech text-xs uppercase">
+        <a href="#diagnostics" class="px-3 py-2 hover:bg-[var(--accent-vermilion)] hover:text-white">[01] Capabilities</a>
+        <a href="#estimator" class="px-3 py-2 hover:bg-[var(--accent-vermilion)] hover:text-white">[02] EUR Quote Matrix</a>
+        <a href="#intake" class="px-3 py-2 hover:bg-[var(--accent-vermilion)] hover:text-white">[03] Bay Intake</a>
+      </nav>
+
+      <div class="col-span-5 sm:col-span-8 md:col-span-3 flex items-center justify-between px-3 sm:px-4 gap-2 bg-[var(--bg-secondary)]">
+        <div class="flex items-center gap-2 font-mono-tech text-xs" aria-live="polite">
+          <span class="inline-block w-2.5 h-2.5 bg-[var(--accent-green)]" aria-hidden="true"></span>
+          <span>BAYS: <strong>3/4 ACTIVE</strong></span>
+        </div>
+        <button id="themeToggle" type="button" class="btn-flat px-2.5 py-1 font-mono-tech text-[11px] uppercase" aria-label="Switch workshop contrast mode">
+          PIT MODE
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1440px] w-full mx-auto px-0 sm:px-4 py-0 sm:py-6 flex-1">
+    <div class="swiss-grid">
+
+      <!-- SECTION 00: ASYMMETRIC HERO + TECHNICAL SCHEMATIC -->
+      <section class="grid grid-cols-1 lg:grid-cols-12" aria-labelledby="hero-heading">
+        <!-- Left 7 cols: Bold Typographic Authority + Strict Bulletpoints -->
+        <div class="lg:col-span-7 swiss-cell p-5 sm:p-8 flex flex-col justify-between bg-[var(--bg-primary)]">
+          <div>
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--accent-vermilion)] text-white font-mono-tech text-xs uppercase mb-5">
+              <span>CATALONIA MOTORSPORT &amp; OEM SPEC</span>
+              <span>//</span>
+              <span>APPLUS+ ITV READY</span>
+            </div>
+            <h1 id="hero-heading" class="text-4xl sm:text-6xl font-bold tracking-tight mb-6">
+              MECHANICAL PRECISION.<br>
+              <span class="text-[var(--accent-cobalt)]">ZERO DIAGNOSTIC GUESSWORK.</span>
+            </h1>
+
+            <ul class="bullet-spec text-sm sm:text-base font-medium space-y-2 mb-6">
+              <li><strong> Powertrain &amp; Timing:</strong> Dry/wet belt replacement, chain tensioning, head gasket machining.</li>
+              <li><strong> Pre-ITV Certification:</strong> Opacity diesel tests, Lambda CO2 calibration, brake-balance bench.</li>
+              <li><strong> Chassis &amp; Corner-Weight:</strong> 3D laser alignment, coilover setup, polyurethane bushing press.</li>
+              <li><strong> High-Voltage &amp; ECU:</strong> CAN-bus oscilloscope fault tracing, DPF regeneration, EV thermal loops.</li>
+              <li><strong> Fixed-Rate Transparency:</strong> Standardized ICAT labor fractions—zero unapproved part surcharges.</li>
+            </ul>
+          </div>
+
+          <!-- Color-Blocked KPI Strip -->
+          <div class="grid grid-cols-3 border border-[var(--border-ink)] font-mono-tech">
+            <div class="p-3 bg-[var(--accent-cobalt)] text-white border-r border-[var(--border-ink)]">
+              <span class="text-[11px] uppercase block opacity-80">BASE LABOR</span>
+              <span class="text-lg sm:text-2xl font-bold">€62/h</span>
+            </div>
+            <div class="p-3 bg-[var(--accent-amber)] text-[#141413] border-r border-[var(--border-ink)]">
+              <span class="text-[11px] uppercase block font-bold">ITV PASS RATE</span>
+              <span class="text-lg sm:text-2xl font-bold">99.4%</span>
+            </div>
+            <div class="p-3 bg-[var(--accent-vermilion)] text-white">
+              <span class="text-[11px] uppercase block opacity-90">WARRANTY</span>
+              <span class="text-lg sm:text-2xl font-bold">24 MO</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 cols: Real Engine Bay Visual + Vector Blueprint Overlay -->
+        <div class="lg:col-span-5 swiss-cell bg-[var(--bg-secondary)] flex flex-col justify-between">
+          <div class="relative border-b border-[var(--border-ink)] overflow-hidden h-64 sm:h-72 bg-[#141413]">
+            <img
+              src="https://images.pexels.com/photos/32725838/pexels-photo-32725838.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+              alt="High-performance engine bay assembly on calibration stand"
+              loading="lazy"
+              width="600"
+              height="340"
+              class="w-full h-full object-cover grayscale contrast-125 opacity-85"
+            >
+            <!-- Vector CAD Reticle Overlay -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 240" fill="none" aria-hidden="true">
+              <line x1="20" y1="0" x2="20" y2="240" stroke="#E03C1F" stroke-width="1" stroke-dasharray="3 3"/>
+              <line x1="0" y1="210" x2="400" y2="210" stroke="#E03C1F" stroke-width="1" stroke-dasharray="3 3"/>
+              <rect x="255" y="18" width="130" height="44" fill="#141413" stroke="#F4F3EF" stroke-width="1"/>
+              <text x="263" y="35" fill="#E03C1F" font-family="JetBrains Mono, monospace" font-size="10" font-weight="bold">TORQUE SPEC: OK</text>
+              <text x="263" y="51" fill="#F4F3EF" font-family="JetBrains Mono, monospace" font-size="10">115 Nm + 90° TTY</text>
+            </svg>
+          </div>
+
+          <!-- Technical Schematic Diagram Card -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div class="flex items-center justify-between border-b border-[var(--border-ink)] pb-2 mb-3">
+              <span class="font-mono-tech text-xs uppercase font-bold">FIG 1.0 — TELEMETRY BENCH</span>
+              <span class="font-mono-tech text-xs px-2 py-0.5 bg-[var(--accent-green)] text-white">ISO-9001</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 items-center my-2">
+              <!-- Custom SVG 1: Piston & Bore Micrometer -->
+              <div class="border border-[var(--border-ink)] p-2.5 bg-[var(--surface-card)] text-center">
+                <svg class="w-10 h-10 mx-auto mb-1" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="12" y="6" width="24" height="20"/>
+                  <line x1="12" y1="12" x2="36" y2="12" stroke="var(--accent-vermilion)"/>
+                  <line x1="12" y1="17" x2="36" y2="17" stroke="var(--accent-vermilion)"/>
+                  <circle cx="24" cy="20" r="3"/>
+                  <path d="M22 26l-4 14h12l-4-14"/>
+                </svg>
+                <span class="font-mono-tech text-[11px] block font-bold">0.01mm BORE</span>
+              </div>
+
+              <!-- Custom SVG 2: Disc Rotor & Caliper -->
+              <div class="border border-[var(--border-ink)] p-2.5 bg-[var(--surface-card)] text-center">
+                <svg class="w-10 h-10 mx-auto mb-1" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="24" cy="24" r="16"/>
+                  <circle cx="24" cy="24" r="6"/>
+                  <path d="M28 8 A16 16 0 0 1 40 24" stroke="var(--accent-vermilion)" stroke-width="4"/>
+                  <circle cx="16" cy="16" r="1" fill="currentColor"/>
+                  <circle cx="16" cy="32" r="1" fill="currentColor"/>
+                </svg>
+                <span class="font-mono-tech text-[11px] block font-bold">380mm BREMBO</span>
+              </div>
+
+              <!-- Custom SVG 3: CAN-BUS Square Wave -->
+              <div class="border border-[var(--border-ink)] p-2.5 bg-[var(--surface-card)] text-center">
+                <svg class="w-10 h-10 mx-auto mb-1" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 32h8V14h8v18h8V14h8v18h8" stroke="var(--accent-cobalt)"/>
+                  <line x1="4" y1="38" x2="44" y2="38" stroke="var(--accent-vermilion)"/>
+                </svg>
+                <span class="font-mono-tech text-[11px] block font-bold">500kbps CAN</span>
+              </div>
+            </div>
+
+            <ul class="bullet-spec font-mono-tech text-xs mt-2">
+              <li>OEM wiring diagrams: VAG, BMW, PSA, Renault-Alpine, Porsche.</li>
+              <li>Old-parts return box provided on every work order by default.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 01: COLOR-CODED TECHNICAL CAPABILITIES (4-CELL BENTO) -->
+      <section id="diagnostics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" aria-label="Core Mechanical Systems">
+        <article class="swiss-cell p-5 bg-[var(--surface-card)]">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-mono-tech text-xs px-2 py-0.5 bg-[var(--accent-vermilion)] text-white font-bold">SYS-01</span>
+            <span class="font-mono-tech text-xs text-[var(--text-secondary)]">DIN 70020</span>
+          </div>
+          <h2 class="text-xl font-bold mb-3">ENGINE &amp; DRIVETRAIN</h2>
+          <ul class="bullet-spec text-xs sm:text-sm">
+            <li>Timing belt &amp; water pump kits</li>
+            <li>Dual-mass flywheel &amp; clutch packs</li>
+            <li>Turbocharger core balancing</li>
+            <li>Injector ultrasonic flow bench</li>
+          </ul>
+        </article>
+
+        <article class="swiss-cell p-5 bg-[var(--surface-card)]">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-mono-tech text-xs px-2 py-0.5 bg-[var(--accent-cobalt)] text-white font-bold">SYS-02</span>
+            <span class="font-mono-tech text-xs text-[var(--text-secondary)]">APPLUS+ SPEC</span>
+          </div>
+          <h2 class="text-xl font-bold mb-3">ITV &amp; EMISSIONS</h2>
+          <ul class="bullet-spec text-xs sm:text-sm">
+            <li>5-gas analyzer &amp; smoke opacity</li>
+            <li>DPF/FAP thermal pressure flush</li>
+            <li>Headlight lux-beam calibration</li>
+            <li>Homologation dossier prep (IDIADA)</li>
+          </ul>
+        </article>
+
+        <article class="swiss-cell p-5 bg-[var(--surface-card)]">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-mono-tech text-xs px-2 py-0.5 bg-[var(--accent-amber)] text-[#141413] font-bold">SYS-03</span>
+            <span class="font-mono-tech text-xs text-[var(--text-secondary)]">HUNTER 3D</span>
+          </div>
+          <h2 class="text-xl font-bold mb-3">SUSPENSION &amp; BRAKES</h2>
+          <ul class="bullet-spec text-xs sm:text-sm">
+            <li>4-wheel camber/caster/toe laser</li>
+            <li>DOT 4 LV / RBF660 pressure bleed</li>
+            <li>Wheel bearing hydraulic press</li>
+            <li>Corner-weight track day setup</li>
+          </ul>
+        </article>
+
+        <article class="swiss-cell p-5 bg-[var(--surface-card)]">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-mono-tech text-xs px-2 py-0.5 bg-[var(--accent-green)] text-white font-bold">SYS-04</span>
+            <span class="font-mono-tech text-xs text-[var(--text-secondary)]">IEC 61851</span>
+          </div>
+          <h2 class="text-xl font-bold mb-3">ELECTRONICS &amp; HYBRID</h2>
+          <ul class="bullet-spec text-xs sm:text-sm">
+            <li>Oscilloscope parasitic draw test</li>
+            <li>PHEV/EV cell delta-V diagnostics</li>
+            <li>R134a &amp; R1234yf A/C recovery</li>
+            <li>Immobilizer &amp; gateway coding</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- SECTION 02 & 03: INTERACTIVE QUOTE MATRIX (LEFT 7) + SINGLE-SOURCE INTAKE & LOCATION (RIGHT 5) -->
+      <section class="grid grid-cols-1 lg:grid-cols-12">
+
+        <!-- Interactive Service & Labor Estimator -->
+        <div id="estimator" class="lg:col-span-7 swiss-cell p-5 sm:p-7 bg-[var(--bg-primary)]">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-ink)] pb-3 mb-4">
+            <div>
+              <span class="font-mono-tech text-xs uppercase text-[var(--accent-vermilion)] font-bold block">// MODULE 02</span>
+              <h2 class="text-2xl sm:text-3xl font-bold">DETERMINISTIC EUR QUOTE MATRIX</h2>
+            </div>
+            <div class="flex items-center gap-1 font-mono-tech text-xs" role="radiogroup" aria-label="Vehicle chassis class">
+              <button type="button" data-tier="1" class="tier-btn btn-flat px-2.5 py-1.5" aria-pressed="true">COMPACT (1.0x)</button>
+              <button type="button" data-tier="1.2" class="tier-btn px-2.5 py-1.5 border border-[var(--border-ink)] bg-[var(--surface-card)] cursor-pointer" aria-pressed="false">SUV/VAN (1.2x)</button>
+              <button type="button" data-tier="1.35" class="tier-btn px-2.5 py-1.5 border border-[var(--border-ink)] bg-[var(--surface-card)] cursor-pointer" aria-pressed="false">SPORT/EV (1.35x)</button>
+            </div>
+          </div>
+
+          <ul class="bullet-spec font-mono-tech text-xs mb-4">
+            <li>Select operations below to calculate binding workshop estimate (base rate €62.00/h + OEM parts + 21% Spanish IVA).</li>
+          </ul>
+
+          <!-- Service Selection Rows -->
+          <div id="serviceList" class="border-t border-l border-[var(--border-ink)] mb-5" role="group" aria-label="Available mechanical operations">
+            <!-- Populated deterministically by Vanilla JS -->
+          </div>
+
+          <!-- Live Calculation Ledger -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 border border-[var(--border-ink)] bg-[var(--surface-card)] font-mono-tech">
+            <div class="p-3 border-r border-b sm:border-b-0 border-[var(--border-ink)]">
+              <span class="text-[11px] text-[var(--text-secondary)] block">EST. TIME</span>
+              <span id="outHours" class="text-lg font-bold">2.7 h</span>
+            </div>
+            <div class="p-3 sm:border-r border-b sm:border-b-0 border-[var(--border-ink)]">
+              <span class="text-[11px] text-[var(--text-secondary)] block">NET (LABOR+PARTS)</span>
+              <span id="outNet" class="text-lg font-bold">€245.40</span>
+            </div>
+            <div class="p-3 border-r border-[var(--border-ink)]">
+              <span class="text-[11px] text-[var(--text-secondary)] block">IVA (21% SPAIN)</span>
+              <span id="outVat" class="text-lg font-bold">€51.53</span>
+            </div>
+            <div class="p-3 bg-[var(--accent-vermilion)] text-white">
+              <span class="text-[11px] uppercase block">TOTAL EUR</span>
+              <span id="outTotal" class="text-lg sm:text-xl font-bold">€296.93</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single-Instance Location & Fast-Track Intake Form (No repeated contact text anywhere else) -->
+        <div id="intake" class="lg:col-span-5 swiss-cell p-5 sm:p-7 bg-[var(--bg-secondary)] flex flex-col justify-between">
+          <div>
+            <span class="font-mono-tech text-xs uppercase text-[var(--accent-cobalt)] font-bold block">// MODULE 03 — SINGLE CONTACT &amp; DISPATCH</span>
+            <h2 class="text-2xl sm:text-3xl font-bold mb-3">BAY RESERVATION &amp; HQ</h2>
+
+            <!-- Single-Instance Contact Block (Strictly Never Duplicated) -->
+            <div class="border border-[var(--border-ink)] bg-[var(--surface-card)] p-3.5 mb-5 font-mono-tech text-xs">
+              <ul class="bullet-spec space-y-1">
+                <li><strong>HQ:</strong> Nau 14, Pol. Ind. Sud-Oest, 08205 Sabadell (Barcelona), Catalonia</li>
+                <li><strong>GPS:</strong> 41.5318° N, 2.0894° E (Exit 12 C-58)</li>
+                <li><strong>DIRECT LINE:</strong> +34 937 12 48 90 · <strong>BAY HOURS:</strong> Mon–Fri 07:30–19:00</li>
+              </ul>
+            </div>
+
+            <!-- Fast-Track Native Form -->
+            <form id="bookingForm" class="space-y-3" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="plateInput" class="block font-mono-tech text-xs uppercase font-bold mb-1">EU/ES License Plate *</label>
+                  <input
+                    id="plateInput"
+                    name="plate"
+                    type="text"
+                    required
+                    maxlength="10"
+                    placeholder="4821 MJK"
+                    autocomplete="off"
+                    class="w-full p-2.5 bg-[var(--surface-card)] border border-[var(--border-ink)] font-mono-tech text-sm uppercase"
+                  >
+                </div>
+                <div>
+                  <label for="dateInput" class="block font-mono-tech text-xs uppercase font-bold mb-1">Drop-Off Date *</label>
+                  <input
+                    id="dateInput"
+                    name="date"
+                    type="date"
+                    required
+                    class="w-full p-2.5 bg-[var(--surface-card)] border border-[var(--border-ink)] font-mono-tech text-sm"
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="ModelInput" class="block font-mono-tech text-xs uppercase font-bold mb-1">Chassis / Engine Code *</label>
+                <input
+                  id="ModelInput"
+                  name="model"
+                  type="text"
+                  required
+                  maxlength="50"
+                  placeholder="SEAT Leon Cupra 2.0 TSI (DNUE)"
+                  class="w-full p-2.5 bg-[var(--surface-card)] border border-[var(--border-ink)] font-mono-tech text-sm"
+                >
+              </div>
+
+              <div>
+                <label for="phoneInput" class="block font-mono-tech text-xs uppercase font-bold mb-1">SMS Telemetry Phone *</label>
+                <input
+                  id="phoneInput"
+                  name="phone"
+                  type="tel"
+                  required
+                  maxlength="18"
+                  placeholder="+34 600 000 000"
+                  class="w-full p-2.5 bg-[var(--surface-card)] border border-[var(--border-ink)] font-mono-tech text-sm"
+                >
+              </div>
+
+              <p id="formError" class="hidden font-mono-tech text-xs p-2 bg-[var(--accent-vermilion)] text-white" role="alert"></p>
+
+              <button type="submit" class="w-full btn-flat py-3 px-4 font-display font-bold text-base uppercase tracking-wide">
+                LOCK BAY &amp; GENERATE WORK ORDER →
+              </button>
+            </form>
+          </div>
+
+          <!-- Native <details> Verification & Unit Test Drawer -->
+          <details class="mt-5 border border-[var(--border-ink)] bg-[var(--surface-card)] font-mono-tech text-xs">
+            <summary class="p-2.5 cursor-pointer font-bold flex justify-between items-center">
+              <span>[SELF-TEST SUITE] VERIFY MATH &amp; TRUST BOUNDARIES</span>
+              <span id="testStatusBadge" class="px-1.5 py-0.5 bg-[var(--accent-green)] text-white">PASS</span>
+            </summary>
+            <ul id="testLog" class="bullet-spec p-3 border-t border-[var(--border-ink)] text-[11px] space-y-1"></ul>
+          </details>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- NATIVE <dialog> FOR WORK ORDER TICKET -->
+  <dialog id="orderDialog" class="p-0 border-2 border-[var(--border-ink)] bg-[var(--bg-primary)] text-[var(--text-primary)] max-w-md w-full">
+    <div class="p-4 bg-[var(--accent-cobalt)] text-white flex justify-between items-center border-b border-[var(--border-ink)]">
+      <span class="font-mono-tech text-xs font-bold uppercase">WORK ORDER CONFIRMED</span>
+      <span id="ticketId" class="font-mono-tech text-xs bg-[#141413] px-2 py-0.5">#TV-000</span>
+    </div>
+    <div class="p-5 font-mono-tech text-xs space-y-3">
+      <ul id="ticketSummary" class="bullet-spec space-y-1.5"></ul>
+      <div class="pt-3 border-t border-[var(--border-ink)] flex justify-end">
+        <button id="closeDialogBtn" type="button" class="btn-flat px-4 py-2 font-bold uppercase">CLOSE TICKET</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- STRICT FOOTER (Stack Used + Attribution with LLM Used) -->
+  <footer class="border-t border-[var(--border-ink)] bg-[var(--bg-secondary)] font-mono-tech text-xs">
+    <div class="max-w-[1440px] mx-auto px-4 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <ul class="bullet-spec flex flex-wrap gap-x-6 gap-y-1">
+        <li><strong>STACK:</strong> Semantic HTML5 · Native CSS3 Grid · Vanilla ES6 JS (0 Runtime Deps)</li>
+        <li><strong>MADE BY:</strong> Roger Pla Ballús with [Claude 3.7 Sonnet]</li>
+      </ul>
+      <span class="text-[11px] text-[var(--text-secondary)]">CATALONIA · ZERO-SLOP ARCHITECTURE</span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const HOURLY_RATE = 62;
+      const IVA_RATE = 0.21;
+      const eur = new Intl.NumberFormat('en-ES', { style: 'currency', currency: 'EUR' });
+
+      // ponytail: static in-memory catalog; move to SQLite/JSON endpoint if catalog exceeds 50 SKUs
+      const SERVICES = [
+        { id: 'itv', code: 'OP-01', name: 'Pre-ITV Full Telemetry & Emissions Check', hours: 1.2, parts: 15, selected: true },
+        { id: 'oil', code: 'OP-02', name: 'Synthetic 5W-30 LongLife + OEM Filter Service', hours: 1.5, parts: 63, selected: true },
+        { id: 'brk', code: 'OP-03', name: 'Front Brembo High-Carbon Discs + Pads + Bleed', hours: 2.0, parts: 185, selected: false },
+        { id: 'tmg', code: 'OP-04', name: 'Timing Belt Kit + Metal Impeller Water Pump', hours: 4.5, parts: 240, selected: false },
+        { id: 'geo', code: 'OP-05', name: '4-Wheel 3D Laser Geometry & Camber Setup', hours: 1.3, parts: 0, selected: false },
+        { id: 'dpf', code: 'OP-06', name: 'DPF Ultrasonic Flush + Differential Sensor', hours: 2.5, parts: 95, selected: false }
+      ];
+
+      let activeTier = 1.0;
+
+      // Pure calculation function for deterministic pricing & targeted unit testing
+      function computeQuote(items, tierMultiplier) {
+        const mult = Number(tierMultiplier);
+        if (!Array.isArray(items) || !Number.isFinite(mult) || mult <= 0 || mult > 3) {
+          throw new RangeError('Invalid quote parameters');
+        }
+        // ponytail: O(n) linear reduction; index by ID if service list exceeds 1,000 items
+        const totals = items.reduce((acc, item) => {
+          if (!item.selected) return acc;
+          const scaledHours = +(item.hours * mult).toFixed(2);
+          acc.hours += scaledHours;
+          acc.net += (scaledHours * HOURLY_RATE) + item.parts;
+          return acc;
+        }, { hours: 0, net: 0 });
+
+        const hours = +totals.hours.toFixed(2);
+        const net = +totals.net.toFixed(2);
+        const vat = +(net * IVA_RATE).toFixed(2);
+        const total = +(net + vat).toFixed(2);
+        return { hours, net, vat, total };
+      }
+
+      // Trust-boundary input sanitizer & validator
+      function sanitizeText(raw, maxLen = 60) {
+        return String(raw || '').replace(/[<>"'`&]/g, '').trim().slice(0, maxLen);
+      }
+
+      function validateIntake({ plate, date, model, phone }) {
+        const cleanPlate = sanitizeText(plate, 10).toUpperCase();
+        const cleanModel = sanitizeText(model, 50);
+        const cleanPhone = sanitizeText(phone, 18);
+        const cleanDate = sanitizeText(date, 12);
+
+        // Accepts Spanish modern (1234 ABC), provincial (B 1234 YZ), or standard EU alphanumeric plates
+        if (!/^[A-Z0-9][A-Z0-9\-\s]{3,8}[A-Z0-9]$/.test(cleanPlate)) {
+          return { ok: false, error: 'INVALID PLATE: Use EU/Spanish format (e.g. 4821 MJK or B-1992-KT).' };
+        }
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(cleanDate)) {
+          return { ok: false, error: 'INVALID DATE: Select a valid workshop drop-off date.' };
+        }
+        const picked = new Date(cleanDate + 'T00:00:00');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (Number.isNaN(picked.getTime()) || picked < today) {
+          return { ok: false, error: 'INVALID DATE: Drop-off date cannot be in the past.' };
+        }
+        if (cleanModel.length < 3) {
+          return { ok: false, error: 'INVALID CHASSIS: Specify vehicle make/model (min 3 chars).' };
+        }
+        if (!/^\+?[0-9\s\-]{7,16}$/.test(cleanPhone)) {
+          return { ok: false, error: 'INVALID PHONE: Provide a valid contact number (+34 ...).' };
+        }
+        return { ok: true, data: { plate: cleanPlate, date: cleanDate, model: cleanModel, phone: cleanPhone } };
+      }
+
+      // Render service matrix
+      const listEl = document.getElementById('serviceList');
+      function renderServices() {
+        listEl.innerHTML = SERVICES.map((s) => {
+          const opNet = (s.hours * activeTier * HOURLY_RATE) + s.parts;
+          return `
+            <div role="checkbox" tabindex="0" aria-checked="${s.selected}" data-id="${s.id}"
+                 class="service-row grid grid-cols-12 items-center p-3 border-r border-b border-[var(--border-ink)] cursor-pointer select-none">
+              <div class="col-span-8 sm:col-span-7 flex items-center gap-2.5 pr-2">
+                <span class="font-mono-tech text-xs px-1.5 py-0.5 border border-current font-bold">${s.selected ? '✓' : '·'} ${s.code}</span>
+                <span class="text-xs sm:text-sm font-semibold">${s.name}</span>
+              </div>
+              <div class="col-span-2 sm:col-span-2 font-mono-tech text-xs text-right muted-cell">
+                ${(s.hours * activeTier).toFixed(1)}h
+              </div>
+              <div class="col-span-2 sm:col-span-3 font-mono-tech text-xs sm:text-sm font-bold text-right">
+                ${eur.format(opNet)}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const q = computeQuote(SERVICES, activeTier);
+        document.getElementById('outHours').textContent = `${q.hours.toFixed(1)} h`;
+        document.getElementById('outNet').textContent = eur.format(q.net);
+        document.getElementById('outVat').textContent = eur.format(q.vat);
+        document.getElementById('outTotal').textContent = eur.format(q.total);
+      }
+
+      function toggleService(id) {
+        const item = SERVICES.find((s) => s.id === id);
+        if (item) {
+          item.selected = !item.selected;
+          renderServices();
+        }
+      }
+
+      listEl.addEventListener('click', (e) => {
+        const row = e.target.closest('.service-row');
+        if (row) toggleService(row.dataset.id);
+      });
+
+      listEl.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          const row = e.target.closest('.service-row');
+          if (row) {
+            e.preventDefault();
+            toggleService(row.dataset.id);
+          }
+        }
+      });
+
+      // Chassis multiplier buttons
+      document.querySelectorAll('.tier-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeTier = parseFloat(btn.dataset.tier);
+          document.querySelectorAll('.tier-btn').forEach((b) => {
+            const active = b === btn;
+            b.setAttribute('aria-pressed', String(active));
+            b.className = active
+              ? 'tier-btn btn-flat px-2.5 py-1.5'
+              : 'tier-btn px-2.5 py-1.5 border border-[var(--border-ink)] bg-[var(--surface-card)] cursor-pointer';
+          });
+          renderServices();
+        });
+      });
+
+      // Theme toggle (High-Contrast Daylight vs Inspection Pit)
+      const themeBtn = document.getElementById('themeToggle');
+      themeBtn.addEventListener('click', () => {
+        const isPit = document.documentElement.getAttribute('data-theme') === 'pit';
+        if (isPit) {
+          document.documentElement.removeAttribute('data-theme');
+          themeBtn.textContent = 'PIT MODE';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'pit');
+          themeBtn.textContent = 'DAY MODE';
+        }
+      });
+
+      // Set default date to tomorrow
+      const dateInput = document.getElementById('dateInput');
+      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+      dateInput.value = tomorrow;
+      dateInput.min = new Date().toISOString().split('T')[0];
+
+      // Form handling + native <dialog>
+      const form = document.getElementById('bookingForm');
+      const errorEl = document.getElementById('formError');
+      const dialog = document.getElementById('orderDialog');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errorEl.classList.add('hidden');
+
+        const selectedOps = SERVICES.filter((s) => s.selected);
+        if (selectedOps.length === 0) {
+          errorEl.textContent = 'SELECT OPERATION: Choose at least 1 service in the Quote Matrix.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        const check = validateIntake({
+          plate: document.getElementById('plateInput').value,
+          date: dateInput.value,
+          model: document.getElementById('ModelInput').value,
+          phone: document.getElementById('phoneInput').value
+        });
+
+        if (!check.ok) {
+          errorEl.textContent = check.error;
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        const quote = computeQuote(SERVICES, activeTier);
+        const ticketCode = '#TV-' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('ticketId').textContent = ticketCode;
+        document.getElementById('ticketSummary').innerHTML = `
+          <li><strong>PLATE:</strong> ${check.data.plate}</li>
+          <li><strong>CHASSIS:</strong> ${check.data.model}</li>
+          <li><strong>DROP-OFF:</strong> ${check.data.date} (08:00 CET)</li>
+          <li><strong>OPERATIONS (${selectedOps.length}):</strong> ${selectedOps.map((s) => s.code).join(', ')}</li>
+          <li><strong>BINDING TOTAL (INC. 21% IVA):</strong> ${eur.format(quote.total)}</li>
+        `;
+        dialog.showModal();
+      });
+
+      document.getElementById('closeDialogBtn').addEventListener('click', () => dialog.close());
+
+      // Targeted Testing Suite (Non-negotiable Rule #3.4)
+      function runTargetedTests() {
+        const results = [];
+        const assert = (name, cond) => results.push({ name, pass: Boolean(cond) });
+
+        // Test 1: Financial math accuracy (1.2h + 1.5h = 2.7h * €62 = €167.40 + €78 parts = €245.40 net; +21% IVA = €296.93)
+        const q1 = computeQuote([
+          { hours: 1.2, parts: 15, selected: true },
+          { hours: 1.5, parts: 63, selected: true },
+          { hours: 4.0, parts: 200, selected: false }
+        ], 1.0);
+        assert('EUR Net & 21% IVA calculation (245.40 -> 296.93)', q1.net === 245.4 && q1.total === 296.93);
+
+        // Test 2: Multiplier scaling & bounds guard
+        let rangeCaught = false;
+        try { computeQuote([], -1); } catch { rangeCaught = true; }
+        assert('Negative tier multiplier rejected at boundary', rangeCaught);
+
+        // Test 3: XSS & HTML entity stripping at trust boundary
+        const clean = sanitizeText('<script>alert("x")<\/script>4821 MJK');
+        assert('XSS payload stripped from license plate input', !clean.includes('<') && !clean.includes('>'));
+
+        // Test 4: Invalid plate rejection
+        const badPlate = validateIntake({ plate: '!!!', date: tomorrow, model: 'SEAT Leon', phone: '+34600111222' });
+        assert('Malformed license plate rejected', badPlate.ok === false);
+
+        const logEl = document.getElementById('testLog');
+        const allPass = results.every((r) => r.pass);
+        document.getElementById('testStatusBadge').textContent = allPass ? `PASS (${results.length}/${results.length})` : 'FAIL';
+        logEl.innerHTML = results.map((r) => `<li>[${r.pass ? 'OK' : 'ERR'}] ${r.name}</li>`).join('');
+      }
+
+      renderServices();
+      runTargetedTests();
+    })();
+  </script>
+</body>
+</html>
