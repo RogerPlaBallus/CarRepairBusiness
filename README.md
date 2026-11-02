@@ -1,7 +1,6 @@
-# TALLERS VALLÈS — Precision Mechanic SPA (Catalonia)
+# TALLERS VALLÈS — Mechanic
 
-## Attribution
-* Made by **Roger Pla Ballús** with **[Claude 3.7 Sonnet]**
+* Made by **Roger Pla Ballús** with **Gemini 4 Argon**
 
 ## Stack
 * **Markup:** Semantic HTML5 (`<dialog>`, `<details>`, native `<input type="date">`)
